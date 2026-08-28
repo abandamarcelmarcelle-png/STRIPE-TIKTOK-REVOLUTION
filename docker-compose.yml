@@ -1,0 +1,148 @@
+version: '3.9'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: stripe-tiktok-db
+    environment:
+      POSTGRES_DB: stripe_tiktok
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/db/postgres.sql:/docker-entrypoint-initdb.d/01-init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dev"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - stripe-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: stripe-tiktok-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - stripe-network
+
+  # Backend API Server
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: stripe-tiktok-backend
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      DATABASE_URL: postgresql://dev:dev123@postgres:5432/stripe_tiktok
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET:-your_super_secret_key_change_in_production}
+      FRONTEND_URL: http://localhost:5173
+      AWS_REGION: ${AWS_REGION:-us-east-1}
+      LOG_LEVEL: info
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - stripe-network
+    command: npm run dev
+
+  # Frontend Development Server
+  frontend:
+    build:
+      context: ./frontend/web
+      dockerfile: Dockerfile
+    container_name: stripe-tiktok-frontend
+    environment:
+      VITE_API_URL: http://localhost:3001
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend/web/src:/app/src
+    networks:
+      - stripe-network
+    depends_on:
+      - backend
+    command: npm run dev
+
+  # ML/AI Service (Python)
+  ai-service:
+    build:
+      context: ./ml-engine
+      dockerfile: Dockerfile
+    container_name: stripe-tiktok-ai
+    environment:
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://dev:dev123@postgres:5432/stripe_tiktok
+      MODEL_PATH: /models
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ml-engine:/app
+      - ml_models:/models
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - stripe-network
+    command: python -m uvicorn ml_server:app --host 0.0.0.0 --port 8000 --reload
+
+  # Prometheus (Monitoring)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: stripe-tiktok-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./infra/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - stripe-network
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  # Grafana (Dashboards)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: stripe-tiktok-grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - stripe-network
+    depends_on:
+      - prometheus
+
+volumes:
+  postgres_data:
+  redis_data:
+  ml_models:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  stripe-network:
+    driver: bridge
