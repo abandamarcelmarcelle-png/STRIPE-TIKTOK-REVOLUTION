@@ -1,0 +1,45 @@
+<!-- STRIPE Logo - SVG Format -->
+<!-- Professional, Minimalist Logo Following Stripe Design Language -->
+
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle (Optional) -->
+  <circle cx="100" cy="100" r="95" fill="#FFFFFF" stroke="#635BFF" stroke-width="2" opacity="0.1"/>
+  
+  <!-- Main S Logo (Stripe) -->
+  <g id="S-Logo">
+    <!-- Outer Curve Top -->
+    <path d="M 60 45 Q 70 35 85 35 Q 105 35 115 50" 
+          stroke="#635BFF" 
+          stroke-width="12" 
+          fill="none" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+    
+    <!-- Middle Curve -->
+    <path d="M 115 50 Q 125 60 115 75 Q 100 90 75 90 Q 50 90 45 100" 
+          stroke="#635BFF" 
+          stroke-width="12" 
+          fill="none" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+    
+    <!-- Bottom Curve -->
+    <path d="M 45 100 Q 35 110 45 125 Q 60 145 85 150 Q 120 150 140 165" 
+          stroke="#635BFF" 
+          stroke-width="12" 
+          fill="none" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Video Play Icon Integration (subtle) -->
+  <g id="play-accent" opacity="0.7">
+    <circle cx="100" cy="100" r="30" fill="none" stroke="#6366F1" stroke-width="1.5" stroke-dasharray="5,5"/>
+    <polygon points="90,85 90,115 115,100" fill="#6366F1" opacity="0.4"/>
+  </g>
+  
+  <!-- Accent dots (TikTok-inspired) -->
+  <circle cx="150" cy="60" r="4" fill="#7C7FFF" opacity="0.6"/>
+  <circle cx="160" cy="80" r="3" fill="#635BFF" opacity="0.5"/>
+  <circle cx="50" cy="150" r="4" fill="#6366F1" opacity="0.6"/>
+</svg>

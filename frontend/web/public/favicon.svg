@@ -1,0 +1,27 @@
+<!-- STRIPE Favicon (16x16 & 32x32) -->
+
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" rx="8" fill="#635BFF"/>
+  
+  <!-- S Logo in White -->
+  <path d="M 10 8 Q 13 5 16 5 Q 20 5 21 8" 
+        stroke="white" 
+        stroke-width="1.5" 
+        fill="none" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+  
+  <path d="M 21 8 Q 23 10 21 13 Q 17 16 12 16 Q 7 16 6 19" 
+        stroke="white" 
+        stroke-width="1.5" 
+        fill="none" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+  
+  <path d="M 6 19 Q 4 22 6 25 Q 9 28 16 28 Q 23 28 24 26" 
+        stroke="white" 
+        stroke-width="1.5" 
+        fill="none" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+</svg>

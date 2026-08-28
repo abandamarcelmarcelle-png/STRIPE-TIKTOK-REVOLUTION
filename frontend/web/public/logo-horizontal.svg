@@ -1,0 +1,33 @@
+<!-- STRIPE Logo - Horizontal Version (for navbar) -->
+
+<svg width="150" height="50" viewBox="0 0 150 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- S Logo -->
+  <g id="logo-icon">
+    <path d="M 15 8 Q 20 4 28 4 Q 35 4 38 10" 
+          stroke="#635BFF" 
+          stroke-width="3" 
+          fill="none" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+    
+    <path d="M 38 10 Q 42 15 38 20 Q 30 26 20 26 Q 10 26 8 30" 
+          stroke="#635BFF" 
+          stroke-width="3" 
+          fill="none" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+    
+    <path d="M 8 30 Q 4 35 8 40 Q 15 46 28 48 Q 40 48 42 44" 
+          stroke="#635BFF" 
+          stroke-width="3" 
+          fill="none" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Text: STRIPE -->
+  <text x="55" y="34" font-family="Inter, sans-serif" font-size="24" font-weight="700" fill="#0F172A">STRIPE</text>
+  
+  <!-- Tagline -->
+  <text x="55" y="47" font-family="Inter, sans-serif" font-size="10" font-weight="500" fill="#64748B" letter-spacing="1">VIDEO</text>
+</svg>
